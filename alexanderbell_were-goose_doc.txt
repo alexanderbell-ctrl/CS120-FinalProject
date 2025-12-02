@@ -1,0 +1,107 @@
+
+
+- Inkscape is very useful in both creating the graphics as well as quickly determining the correct positions of different labels/buttons
+- Ideas for expansion:
+	- utilize list/dictionary in a separate file to store all of the variables for the document sprites
+
+
+----------
+PSEUDOCODE
+----------
+
+Introduction class (simpleGE.Scene):
+	set background image
+	create -
+		title = multilabel w/ title text, size of (500,300)
+		btnPlay = set text "Play", position to (100,800)
+		btnQuit = set text "Quit", position to (100,400)
+
+	sprites: {title, btnPlay, btnQuit,}
+
+	process():
+		if quit clicked: play 'click sound', quit
+		if start clicked: play 'click sound', start	
+
+
+Desk class (simpleGE.Scene):
+	init (size = (1280,720), support = 0, awareness = 0, survivors = 0, casualties = 0, turns_left = 0)
+		super __init__(size)
+		set background image
+
+		set label variables -
+			self.support = support
+			self.awareness = awareness
+			self.survivors = survivors
+			self.casualties = casualties
+			self.turns_left = turns_left
+
+		create -
+			lblSupport = simpleGE.Label()
+			self.~.text = f"Support: {self.support}%"
+			self.~.center = (120,57.5)
+			self.~.size = (200,75)
+
+			lblAwareness = simpleGE.Label()
+			self.~.text = f"Awareness: {self.awareness}%"
+			self.~.center = (120,157.5)
+			self.~.size = (200,75)
+
+			lblSurvivors = simpleGE.Label()
+			self.~.text = f"Survivors: {self.survivors}"
+			self.~.center = (345,57.5)
+			self.~.size = (200,75)
+
+			lblCasualties = simpleGE.Label()
+			self.~.text = f"Casualties: {self.casualties}"
+			self.~.center = (345,157.5)
+			self.~.size = (200,75)
+
+			lblTurnsLeft = simpleGE.Label()
+			self.~.text = f"Turns Left: {self.turns_left}"
+			self.~.center = (1116,57.5)
+			self.~.size = (200,75)
+
+
+
+		self.response = "remain_desk"
+		document_sprites = []
+		
+
+		sprites: {lblSupport, lblAwareness, lblSurvivors, lblCasualties, [document_sprites]}
+
+		process(self):
+		---
+# switch to the map every 2 document decisions
+			phase = 0
+			if phase = 2:
+				response = "go_to_map"
+				stop
+		---
+				
+
+
+Map class (simpleGE.Scene):
+	init (size = (1280,720)):
+		super __init__(size)
+		set label variables -
+			turns_left = 0
+		
+		lblTurns = simpleGE.Label()
+
+		sprites: {lblTurns}
+XXXXXXXXXXXX
+
+
+
+
+Document class (simpleGE.sprite):
+	init(self,scene):
+		super __init__
+		set image
+		set size (315,460)
+		set position (687.5,385)
+		
+
+
+
+
