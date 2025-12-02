@@ -5,6 +5,10 @@
 	- utilize list/dictionary in a separate file to store all of the variables for the document sprites
 
 
+- Difficulties:
+	- setting the active document sprite, so buttons only activate one sprite at a time
+
+
 ----------
 PSEUDOCODE
 ----------
@@ -63,9 +67,23 @@ Desk class (simpleGE.Scene):
 
 
 
+			btnApprove = simpleGE.Button()
+			text = "APPROVE"
+			size = (200,75)
+			position = ()
+			color = green
+
+			btnDeny = simpleGE.Button()
+			text = "DENY"
+			size = (200,75)
+			position = ()
+			color = red
+
+
 		self.response = "remain_desk"
-		document_sprites = []
-		
+		self.document_A = Document_A(self)
+		self.document_B = Document_B(self)
+
 
 		sprites: {lblSupport, lblAwareness, lblSurvivors, lblCasualties, [document_sprites]}
 
@@ -73,9 +91,34 @@ Desk class (simpleGE.Scene):
 		---
 # switch to the map every 2 document decisions
 			phase = 0
+
+			if phase = 0:
+				if btnApprove clicked:
+					self.document_A.visible = False
+					self.document_A.update_values()
+					phase += 1
+
+				if btnDeny clicked:
+					self.document_A.visible = False
+					self.document_B.visible
+					phase += 1
+
+			if phase = 1:
+				if btnApprove clicked:
+					self.document_B.visible = False
+					self.document_B.update_values()
+					phase += 1
+
+				if btnDeny clicked:
+					self.document_B.visible = False
+					phase += 1
+
 			if phase = 2:
 				response = "go_to_map"
 				stop
+			
+
+
 		---
 				
 
@@ -94,13 +137,20 @@ XXXXXXXXXXXX
 
 
 
-Document class (simpleGE.sprite):
+Document_A class (simpleGE.sprite):
 	init(self,scene):
-		super __init__
+		super __init__(scene)
 		set image
 		set size (315,460)
 		set position (687.5,385)
 		
+Document_B class (simpleGE.sprite):
+	init(self,scene):
+		super __init__(scene)
+		set image
+		set size (315,460)
+		set position (687.5,385)
+		visible = False
 
 
 
