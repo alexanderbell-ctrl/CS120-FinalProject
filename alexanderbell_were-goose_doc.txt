@@ -43,27 +43,27 @@ Desk class (simpleGE.Scene):
 
 		create -
 			lblSupport = simpleGE.Label()
-			self.~.text = f"Support: {self.support}%"
+			self.~.text = f"Support: {support}%"
 			self.~.center = (120,57.5)
 			self.~.size = (200,75)
 
 			lblAwareness = simpleGE.Label()
-			self.~.text = f"Awareness: {self.awareness}%"
+			self.~.text = f"Awareness: {awareness}%"
 			self.~.center = (120,157.5)
 			self.~.size = (200,75)
 
 			lblSurvivors = simpleGE.Label()
-			self.~.text = f"Survivors: {self.survivors}"
+			self.~.text = f"Survivors: {survivors}"
 			self.~.center = (345,57.5)
 			self.~.size = (200,75)
 
 			lblCasualties = simpleGE.Label()
-			self.~.text = f"Casualties: {self.casualties}"
+			self.~.text = f"Casualties: {casualties}"
 			self.~.center = (345,157.5)
 			self.~.size = (200,75)
 
 			lblTurnsLeft = simpleGE.Label()
-			self.~.text = f"Turns Left: {self.turns_left}"
+			self.~.text = f"Turns Left: {turns_left}"
 			self.~.center = (1116,57.5)
 			self.~.size = (200,75)
 
@@ -87,10 +87,10 @@ Desk class (simpleGE.Scene):
 		self.document_B = Document_B(self)
 
 
-		sprites: {lblSupport, lblAwareness, lblSurvivors, lblCasualties, [document_sprites]}
+		sprites: {lblSupport, lblAwareness, lblSurvivors, lblCasualties, 2xdocument_sprites}
 
 		process(self):
-		---
+
 # switch to the map every 2 document decisions
 			phase = 0
 
@@ -118,10 +118,6 @@ Desk class (simpleGE.Scene):
 			if phase = 2:
 				response = "go_to_map"
 				stop
-			
-
-
-		---
 				
 
 
