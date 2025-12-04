@@ -73,13 +73,13 @@ class Desk (simpleGE.Scene):
         self.btnApprove = simpleGE.Button()
         self.btnApprove.text = "APPROVE"
         self.btnApprove.size = (80,40)
-        self.btnApprove.position = (585,580)
+        self.btnApprove.position = (1585,580)
 #        self.btnApprove.bgColor = "green"
 
         self.btnDeny = simpleGE.Button()
         self.btnDeny.text = "DENY"
         self.btnDeny.size = (80,40)
-        self.btnDeny.position = (900,580)
+        self.btnDeny.position = (1900,580)
 #        self.btnDeny.bgColor = "red"
 
 
