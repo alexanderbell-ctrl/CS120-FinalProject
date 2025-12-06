@@ -3,24 +3,25 @@
 '''
 import pygame, simpleGE
 
-class Introduction (simpleGE.Scene):
+class Introduction(simpleGE.Scene):
     def __init__(self, size= (1280,720)):
         super().__init__(size)
         self.setImage("assets/white.png")
         self.response = "quit"
 
         self.title = simpleGE.MultiLabel()
-        self.title.text = "TEST INTRO TEXT"
-        self.title.size = (500,300)
+        self.title.textLines = ["Awesome Weregoose game!!!",]
+        self.title.size = (800,400)
+        self.title.center = (640,300)
 
         self.btnPlay = simpleGE.Button()
         self.btnPlay.text = "PLAY"
-        self.btnPlay.center = (100,800)
+        self.btnPlay.center = (200,650)
         self.btnPlay.bgColor = "green"
 
         self.btnQuit = simpleGE.Button()
         self.btnQuit.text = "QUIT"
-        self.btnQuit.center = (100,400)
+        self.btnQuit.center = (1100,650)
         self.btnQuit.bgColor = "red"
 
         self.sprites = [self.title, self.btnPlay, self.btnQuit]
@@ -28,8 +29,10 @@ class Introduction (simpleGE.Scene):
     def process(self):
         if self.btnQuit.clicked: 
             self.response = "quit"
+            self.stop()
         if self.btnPlay.clicked: 
             self.response = "start"
+            self.stop()
 
 
 class Desk (simpleGE.Scene):
@@ -94,6 +97,11 @@ class Desk (simpleGE.Scene):
         self.phase = phase
     def process(self):
 
+
+
+
+
+'''
 # switch to the map every 2 document decisions
         if self.phase == 0:
             if self.btnApprove.clicked:
@@ -121,7 +129,7 @@ class Desk (simpleGE.Scene):
         if self.phase == 2:
             self.response = "go_to_map"
             self.stop()
-
+'''
 
 
 class Document_A (simpleGE.Sprite):
@@ -147,7 +155,7 @@ class Document_B (simpleGE.Sprite):
         self.setImage("assets/document_B.png")
         self.setSize(315,460)
         self.position = (687.5,385)
-#        self.visible = False
+        self.visible = False
 
     def update_values_accept(self):
         self.scene.support += 100
@@ -162,20 +170,14 @@ class Document_B (simpleGE.Sprite):
 def main():
     keepGoing = True
     while keepGoing:
-        game = Desk()
-        game.start()
-
-
-
-'''
-    keepGoing = True
-    while keepGoing:
         intro = Introduction()
         intro.start()
         if intro.response == "start":
             game = Desk()
             game.start()
-'''
+        else:
+            keepGoing = False
+
 if __name__ == "__main__":
     main()
 
