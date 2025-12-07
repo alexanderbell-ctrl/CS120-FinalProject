@@ -110,12 +110,12 @@ class Desk (simpleGE.Scene):
             self.document_A.update_values_accept()
             self.response = "go_to_map"
             self.update_labels()
-#            self.stop()
+            self.stop()
         if self.btnDeny.clicked:
-            self.document_A.update_values_accept()
+            self.document_A.update_values_deny()
             self.respone = "go_to_map"
             self.update_labels()
-#            self.stop()
+            self.stop()
 
 '''
     def process(self):
@@ -157,9 +157,11 @@ class Document_A (simpleGE.Sprite):
     def update_values_accept(self):
         self.scene.support -= 100
         self.scene.awareness -= 100
+        self.scene.turns_left += 2
     def update_values_deny(self):
         self.scene.support += 100
         self.scene.awareness += 100
+        self.scene.turns_left += 5
 
 '''
 class Document_B (simpleGE.Sprite):
@@ -179,7 +181,33 @@ class Document_B (simpleGE.Sprite):
         self.scene.awareness -= 100
 '''
 
+class End_of_Game (simpleGE.Scene):
+    def __init__(self, size =(1280,720),support = 0, awareness = 0, survivors = 0, casualties = 0):
+        super().__init__(size)
 
+        self.support = support
+        self.awareness = awareness
+        self.survivors = survivors
+        self.casualties = casualties
+
+        self.info_win = simpleGE.MultiLabel()
+        self.info_win.textlines = ["SAMPLE WIN/LOSE TEXT HERE"]
+        self.info_win.size = (800,400)
+        self.info_win.center = (640,300)
+
+        self.btnEndGame = simpleGE.Button()
+        self.btnEndGame.text = "End Game"
+        self.btnEndGame.center = (860,650)
+    
+        self.sprites = [self.btnEndGame]
+
+    def process(self):
+        if self.support > 0:
+            self.info_win.textlines = ["LOSE"]
+        if self.support < 0:
+            self.info_win.textlines = ["WIN"]
+        if self.btnEndGame.clicked:
+            self.stop()
 
 def main():
     keepGoing = True
@@ -189,6 +217,18 @@ def main():
         if intro.response == "start":
             game = Desk()
             game.start()
+
+            lastAwareness = game.awareness
+            lastSupport = game.support
+            lastCasualties = game.casualties
+            lastSurvivors = game.survivors
+
+            lastTurnsLeft = game.turns_left
+        
+            if lastTurnsLeft > 0:
+                endGame = End_of_Game(support = lastSupport, awareness = lastAwareness, survivors = lastSurvivors, casualties = lastCasualties)
+                endGame.start()
+
         else:
             keepGoing = False
 
