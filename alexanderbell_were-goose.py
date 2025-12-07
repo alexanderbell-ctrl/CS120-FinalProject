@@ -75,54 +75,68 @@ class Desk (simpleGE.Scene):
 
         self.btnApprove = simpleGE.Button()
         self.btnApprove.text = "APPROVE"
-        self.btnApprove.size = (80,40)
-        self.btnApprove.position = (1585,580)
-#        self.btnApprove.bgColor = "green"
+        self.btnApprove.size = (100,40)
+        self.btnApprove.center = (585,580)
+        self.btnApprove.bgColor = "green"
 
         self.btnDeny = simpleGE.Button()
         self.btnDeny.text = "DENY"
         self.btnDeny.size = (80,40)
-        self.btnDeny.position = (1900,580)
-#        self.btnDeny.bgColor = "red"
+        self.btnDeny.center = (900,580)
+        self.btnDeny.bgColor = "red"
 
 
         self.response = "remain_desk"
 
+#        self.phase = phase
+
         self.document_A = Document_A(self)
-        self.document_B = Document_B(self)
+#        self.document_B = Document_B(self)
 
+#        self.document_A.visible = (self.phase == 0)
+#        self.document_B.visible = (self.phase == 1)
 
-        self.sprites = [self.lblTurnsLeft, self.lblSupport, self.lblAwareness, self.lblSurvivors, self.lblCasualties, self.document_A, self.document_B, self.btnApprove, self.btnDeny]
-        
-        self.phase = phase
+        self.sprites = [self.lblTurnsLeft, self.lblSupport, self.lblAwareness, self.lblSurvivors, self.lblCasualties, self.document_A, self.btnApprove, self.btnDeny]
+    
+    def update_labels(self):
+        self.lblSupport.text   = f"Support: {self.support}%"
+        self.lblAwareness.text = f"Awareness: {self.awareness}%"
+        self.lblSurvivors.text = f"Survivors: {self.survivors}"
+        self.lblCasualties.text= f"Casualties: {self.casualties}"
+        self.lblTurnsLeft.text = f"Turns Left: {self.turns_left}"
+
     def process(self):
-
-
-
-
+        if self.btnApprove.clicked:
+            self.document_A.update_values_accept()
+            self.response = "go_to_map"
+            self.update_labels()
+#            self.stop()
+        if self.btnDeny.clicked:
+            self.document_A.update_values_accept()
+            self.respone = "go_to_map"
+            self.update_labels()
+#            self.stop()
 
 '''
+    def process(self):
+        self.document_A.visible = (self.phase == 0)
+        self.document_B.visible = (self.phase == 1)
 # switch to the map every 2 document decisions
         if self.phase == 0:
-            if self.btnApprove.clicked:
-                self.document_A.visible = False
+            if self.btnApprove.active:
                 self.document_A.update_values_accept()
                 self.phase += 1
 
-            if self.btnDeny.clicked:
-                self.document_A.visible = False
-                self.document_B.visible
+            if self.btnDeny.active:
                 self.document_A.update_values_deny()
                 self.phase += 1
 
         if self.phase == 1:
-            if self.btnApprove.clicked:
-                self.document_B.visible = False
+            if self.btnApprove.active:
                 self.document_B.update_values_accept()
                 self.phase += 1
 
-            if self.btnDeny.clicked:
-                self.document_B.visible = False
+            if self.btnDeny.active:
                 self.document_B.update_values_deny()
                 self.phase += 1
 
@@ -147,7 +161,7 @@ class Document_A (simpleGE.Sprite):
         self.scene.support += 100
         self.scene.awareness += 100
 
-	
+'''
 class Document_B (simpleGE.Sprite):
     def __init__(self,scene):
         super().__init__(scene)
@@ -163,7 +177,7 @@ class Document_B (simpleGE.Sprite):
     def update_values_deny(self):
         self.scene.support -= 100
         self.scene.awareness -= 100
-
+'''
 
 
 
