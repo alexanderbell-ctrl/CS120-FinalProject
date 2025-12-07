@@ -16,9 +16,9 @@ PSEUDOCODE
 Introduction class (simpleGE.Scene):
 	set background image
 	create -
-		title = multilabel w/ title text, size of (500,300)
-		btnPlay = set text "Play", position to (100,800)
-		btnQuit = set text "Quit", position to (100,400)
+		title = multilabel w/ title text, size of (800,400)
+		btnPlay = set text "Play", position to (200,650)
+		btnQuit = set text "Quit", position to (1100,650)
 
 	sprites: {title, btnPlay, btnQuit,}
 
@@ -89,6 +89,18 @@ Desk class (simpleGE.Scene):
 
 		sprites: {lblSupport, lblAwareness, lblSurvivors, lblCasualties, 2xdocument_sprites}
 
+
+		process(self):
+			if accept clicked:
+				update values w/ 'accept'
+				go to map
+				self.stop()
+			if deny clicked:
+				update values w/ 'deny'
+				go to map
+				self.stop()
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 		process(self):
 
 # switch to the map every 2 document decisions
@@ -118,7 +130,7 @@ Desk class (simpleGE.Scene):
 			if phase = 2:
 				response = "go_to_map"
 				stop
-				
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++			
 
 
 Map class (simpleGE.Scene):
@@ -130,7 +142,20 @@ Map class (simpleGE.Scene):
 		lblTurns = simpleGE.Label()
 
 		sprites: {lblTurns}
-XXXXXXXXXXXX
+
+
+
+
+
+
+End of Game class (simpleGE.Scene):
+	init (size = (1280,720), support = 0, awareness = 0, survivors = 0, casualties = 0, turns_left = 0):
+	super __init__(size)
+	text = multilabel, size (800,400), position (640,300)
+	end_game = button, center (860,650)
+
+	if btn end_game clicked:
+		self.stop()
 
 
 
@@ -159,11 +184,23 @@ Document_B class (simpleGE.sprite):
 
 main():
 	keepGoing = True
-	intro = Introduction
+	intro = Introduction()
 	intro.start()
 
 	if intro.response is "start":
 		game = Desk()
+		game.start
+
+		lastAwareness = game.awareness
+		lastSupport = game.support
+		lastCasualties = game.~
+		lastSurvivors = game.~
+
+		lastTurnsLeft = desk.turns_left
+
+		if lastTurnsLeft > 0:
+			end_game = EndGame(lastSupport, lastAwareness, etc.)
+			end_game.start
 
 	else:
 		no keepGoing
