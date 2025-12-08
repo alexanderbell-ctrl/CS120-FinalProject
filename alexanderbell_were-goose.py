@@ -191,21 +191,21 @@ class End_of_Game (simpleGE.Scene):
         self.casualties = casualties
 
         self.info_win = simpleGE.MultiLabel()
-        self.info_win.textlines = ["SAMPLE WIN/LOSE TEXT HERE"]
-        self.info_win.size = (800,400)
+        self.info_win.textLines = [f"SAMPLE TEXT"]
+        self.info_win.size = (1200,600)
         self.info_win.center = (640,300)
 
         self.btnEndGame = simpleGE.Button()
         self.btnEndGame.text = "End Game"
         self.btnEndGame.center = (860,650)
     
-        self.sprites = [self.btnEndGame]
+        self.sprites = [self.btnEndGame, self.info_win]
 
     def process(self):
         if self.support > 0:
-            self.info_win.textlines = ["LOSE"]
+            self.info_win.textLines = ["You Win...", "You successfully gain support of all of the geese, but you are captured and sent to a lab for experimentation.", f"Awareness: {self.awareness}", f"Support: {self.support}"]
         if self.support < 0:
-            self.info_win.textlines = ["WIN"]
+            self.info_win.textLines = ["You Lose...", "While you remain hidden amongst the humans, you lose all support of the geese, resulting in a coup.", f"Awareness: {self.awareness}", f"Support: {self.support}"]
         if self.btnEndGame.clicked:
             self.stop()
 
